@@ -1,56 +1,76 @@
-var library
-var count=30;
+// We want to hide the quiz and the result page.//
+var countdown = 0;
+var time = 30000
+var timeOut = ''
+var answers = ["Mr. Belding", "fresh", "The Lion King", "Nirvana", "Chicago Bulls"]
+var incorrect = 0
+var unanswered= 0
+var correct = 0
 
-var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
-
-function timer()
-{
-  count=count-1;
-  if (count <= 0)
-  {
-     clearInterval(counter);
-     //counter ended, do something here
-     return;
-  }
-
-
-{ "Question 1"
-    What was the first full length GCI movie?
-    Answers 'A Bugs Life', 'Monsters Inc.', 'Toy Story', 'The Lion King'
+function onload() {
+    $('#quiz').hide();
+    $('#results').hide();
 }
 
-{"Question 2"
-   Which of these is not the name of one of the Spice Girls?
-   Answers 'Sporty Spice', 'Fred Spice' 'Scary Spice', 'Posh Spice'
+
+
+onload();
+
+function start() {
+    $('#quiz').show();
+    $('#results').hide();
+    $('#startScreen').hide();
+    timer();
+    timesUp();
 }
 
-{ "Question 3"
-   Which NBA team won the most titles in the 90s?
-   Answers 'New York Knicks', 'Portland Trailblazers', 'Los Angeles Lakers', 'Chicago Bulls'
+function finish() {
+    getResults();
+    $('#quiz').hide();
+    $('#results').show();
+    $('#startScreen').hide();
+    stopTimer();
+
+}
+//events//
+function timer() {
+    countdown = setInterval(function () {
+        time -= 1000;
+        $('#timer').html(time / 1000);
+        console.log(time);
+    }, 1000);
 }
 
-{"Question 4"
- Which group released the hit song, "Smells Like Teen Spirit?"
- Answers 'Nirvana', 'Backstreet Boys', 'The Offspring', 'No Doubt'
+function stopTimer() {
+    clearInterval(countdown);
+    clearTimeout(timeOut);
 }
 
-{"Question 5"
-Which popular Disney movie featured the song "Circle of Life?"
-Answers 'Aladdin', 'Hercules', 'Mulan', 'The Lion King'
+function timesUp() {
+    timeOut = setTimeout(function () {
+        clearInterval(countdown);
+        finish();
+    }, time);
 }
 
-{"Question 6"
-Finish this line from the Fresh Prince of Bel-Air theme song: 'I whisteled for a cab
-and when it came near, the license plate said...'
-Answers 'Dice', 'Mirror' 'Fresh' 'Cab'
+function getResults() {
+    for (var i = 0; i < $('.question').length; i++) {
+        //var checked=$('input:checked')[i]
+        var parent = $('.question')[i];
+        if (!$(parent).find('input:checked').val()) {
+            unanswered++
+        } else if ($(parent).find('input:checked').val() === answers[i]) {
+            correct++
+        } else {
+           incorrect++
+        }
+
+    }
+    $("#incorrect").html(incorrect);
+    $("#correct").html(correct);
+    $("#unanswered").html(unanswered);
 }
 
-{"Question 7"
-What was Doug's best friend's name?
-Answers 'Skeeter', 'Mark', 'Zach', 'Cody'
-}
+$('#startgame').on('click', start);
+$('#finish').on('click', finish);
 
-{"Question 8"
-What was the name of the principal at Bayside High in Saved By the Bell?
-Answer 'Mr. Zhou', 'Mr. Driggers', 'Mr. Belding' 'Mr. Page'
-}
