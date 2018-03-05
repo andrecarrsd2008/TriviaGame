@@ -3,13 +3,41 @@
 }
 
 body {
-    width: 80%;
+    width: 75%;
     text-align: center;
     margin: 0 auto;
-    /* background: url('../images/yourimage.jpg') */
-    background-color: black;
+    background: url(../images/geometry.png);
+    background-color: rgb(236, 100, 207);
 }
 
-#wrapper{
-    background-color: white;
+#startScreen{
+    background-color: yellow;
+    font-size: 30px;
+    color: blue;
+    height: 550px;
+    padding: 5px;
+    margin-top: 50px;
+}
+
+p{
+    color: black;
+    height: 15px;
+
+}
+
+#results{
+    background-color: yellow;
+    font-size: 30px;
+    color: blue;
+    height: 550px;
+    padding: 5px;
+    margin-top: 30px;
+}
+
+#quiz{
+    background-color: yellow;
+    font-size: 20px;
+    color: blue;
+    height: 700px;
+    padding: 5px 30px 10px 30px;
 }
